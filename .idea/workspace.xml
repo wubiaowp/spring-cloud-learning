@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="43ba473c-97f4-4104-a74c-af3441e59458" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka/src/main/java/com/test/eureka/TestEurekaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/eureka/src/main/java/com/test/eureka/TestEurekaApplication.java" afterDir="false" />
-    </list>
+    <list default="true" id="43ba473c-97f4-4104-a74c-af3441e59458" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/eureka/target/" />
@@ -253,12 +249,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1533701406575</updated>
-      <workItem from="1533701409894" duration="5115000" />
+      <workItem from="1533701409894" duration="5352000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5115000" />
+    <option name="totallyTimeSpent" value="5352000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
