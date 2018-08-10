@@ -1,9 +1,9 @@
 server:
-  port: 8088
+  port: 8089
 
 spring:
   application:
-      name: source-fegin
+      name: source-zipkin
   output:
     ansi:
       enabled: ALWAYS
