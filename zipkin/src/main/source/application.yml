@@ -7,30 +7,16 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
-  #kafka配置
-  cloud:
-    stream:
-      kafka:
-        binder:
-          zknodes: 192.168.65.0
-          brokers: 192.168.65.0
-#链路搜索引擎配置
-zipkin:
-  storage:
-    type: elasticsearch
-    elasticsearch:
-      hosts: http://192.168.65.0:9200
-      username: elastic
-      password: changeme
-      cluster: elasticsearch
-      index: zipkin
-      index-shards: 1
-      index-replicas: 1
+  zipkin:
+    base-url: http://192.168.65.0:9411/
+  sleuth:
+    sampler:
+      probability: 0.1
 
 eureka:
   instance:
     hostname: localhost
-    instance-id: ${spring.application.name}-${eureka.instance.hostname}:${server.port}
+    instance-id: ${spring.application.name}:${eureka.instance.hostname}:${server.port}
     prefer-ip-address: true
   client:
     register-with-eureka: true

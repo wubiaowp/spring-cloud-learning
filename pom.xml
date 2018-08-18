@@ -18,6 +18,7 @@
         <module>zipkin</module>
         <module>customer</module>
         <module>product</module>
+        <module>provider</module>
     </modules>
 
     <parent>
@@ -70,24 +71,7 @@
         <!-- 全链路追踪-START -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-sleuth-zipkin-stream</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream-binder-kafka</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.zipkin.java</groupId>
-            <artifactId>zipkin-autoconfigure-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.zipkin.java</groupId>
-            <artifactId>zipkin-autoconfigure-storage-elasticsearch-http</artifactId>
-            <version>2.4.1</version>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
         <!-- 全链路追踪-END -->
     </dependencies>

@@ -1,12 +1,13 @@
-package com.test.zipkin;
+package com.test.provider;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
-public class TestZipkinApplication {
+public class TestProviderApplication {
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(TestZipkinApplication.class).web(true).run(args);
+        new SpringApplicationBuilder(TestProviderApplication.class).web(true).run(args);
     }
+
 }
