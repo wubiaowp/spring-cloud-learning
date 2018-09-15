@@ -11,14 +11,13 @@
     <modules>
         <module>eureka</module>
         <module>config</module>
-        <module>zuul</module>
         <module>ribbon</module>
         <module>fegin</module>
         <module>hystrix</module>
         <module>zipkin</module>
         <module>customer</module>
-        <module>product</module>
         <module>provider</module>
+        <module>gateway</module>
     </modules>
 
     <parent>
