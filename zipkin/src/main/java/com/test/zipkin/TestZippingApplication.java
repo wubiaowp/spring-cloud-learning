@@ -1,13 +1,13 @@
-package com.test.customer;
+package com.test.zipkin;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
-public class TestCustomerApplication {
+public class TestZippingApplication {
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(TestCustomerApplication.class).web(true).run(args);
+        SpringApplication.run(TestZippingApplication.class,args);
     }
-
 }
