@@ -13,4 +13,12 @@
     <packaging>jar</packaging>
     <name>config Maven Webapp</name>
 
+    <dependencies>
+        <!-- config服务 Config Server-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

@@ -1,20 +1,12 @@
 server:
-  port: 8089
+  port: 8085
 
 spring:
   application:
-      name: source-gateway
+      name: source-author
   output:
     ansi:
       enabled: ALWAYS
-  cloud:
-    gateway:
-      default-filters:
-      routes:
-      - id: source-zipkin
-      uri: lb://source-zipkin
-      predicates:
-      - Path=/zipkin/**
 
 eureka:
   port: 8761
