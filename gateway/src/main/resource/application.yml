@@ -7,14 +7,34 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
-  cloud:
-    gateway:
-      default-filters:
-      routes:
-      - id: source-zipkin
-      uri: lb://source-zipkin
-      predicates:
-      - Path=/zipkin/**
+#  cloud:
+#    gateway:
+#      default-filters:
+#      routes:
+#      - id: source-zipkin
+#      uri: lb://source-zipkin
+#      predicates:
+#      - Path=/zipkin/**
+
+zuul:
+  sensitiveHeaders: "Cookie","Set-Cookie"
+  routes:
+    source-alipay: /alipay/**
+    source-wechat: /wechat/**
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enable: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
 
 eureka:
   port: 8761

@@ -1,20 +1,12 @@
 server:
-  port: 8888
+  port: 8887
 
 spring:
   application:
-      name: source-config
+      name: source-alipay
   output:
     ansi:
       enabled: ALWAYS
-  cloud:
-    config:
-      username: admin
-      password: admin
-      service:
-        git:
-          uri: http://test.walkman.com/walkman/SpringCloud2.0.git
-          search-path: /config-repo
 
 eureka:
   instance:
