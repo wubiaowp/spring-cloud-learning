@@ -6,4 +6,6 @@ gateway:网关服务
 ribbon:负载
 zipping:链路追踪
 webflux:非阻塞API
+alipay:支付宝接入：网页版支付、提现、OSs上传图片
+wechat:微信接入
 bootstrap.yml:系统配置启动文件
