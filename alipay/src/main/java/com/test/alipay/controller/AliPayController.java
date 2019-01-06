@@ -29,6 +29,9 @@ import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.*;
 
+/**
+ * 支付宝支付处理--暂不做同步处理、回调方式使用异步
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api/aliPay")
