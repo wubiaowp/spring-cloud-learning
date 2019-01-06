@@ -17,10 +17,13 @@ import com.test.alipay.util.AliPayOrderUtil;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Map;
@@ -34,7 +37,7 @@ public class AliPayController {
     /**
      * 初始化客户端
      */
-    private AlipayClient alipayClient = new DefaultAlipayClient(AliPayConstants.REQUEST_URL,
+    private static AlipayClient alipayClient = new DefaultAlipayClient(AliPayConstants.REQUEST_URL,
             AliPayConstants.OPEN_ID, AliPayConstants.BUS_RAS_PRIVATE_KET, AliPayConstants.FORMAT,
             AliPayConstants.CHARSET, AliPayConstants.RAS_PUBLIC_KEY, AliPayConstants.SIGNTYPE);
 
@@ -48,6 +51,7 @@ public class AliPayController {
 
     /**
      * 支付宝网页支付
+     *
      * @param response
      * @throws IOException
      */
@@ -60,7 +64,9 @@ public class AliPayController {
         aliPayParamModel.setSubject("支付测试");
         aliPayParamModel.setTotal_amount("0.01");
         aliPayParamModel.setProduct_code(AliPayConstants.PRODUCT_CODE);
+        // TODO 同步处理业务-涉及到商户自定义页面跳转
         aliPayRequest.setReturnUrl("http://ip:port/api/aliPay/return");
+        // TODO 异步处理业务-修改订单状态、校验签名是否正确
         aliPayRequest.setNotifyUrl("http://ip:port/api/aliPay/notify");
         aliPayRequest.setBizContent(JSON.toJSONString(aliPayParamModel));
         try {
@@ -71,7 +77,7 @@ public class AliPayController {
             response.getWriter().flush();
             response.getWriter().close();
         } catch (AlipayApiException e) {
-            log.info("支付宝支付异常信息为:" + e.getErrMsg());
+            log.info("支付宝支付异常，异常信息为:" + e.getErrMsg());
             e.printStackTrace();
         }
     }
@@ -80,7 +86,7 @@ public class AliPayController {
      * 支付宝提现
      */
     @RequestMapping("/withdraw")
-    public void withdraw(){
+    public void withdraw() {
         val aliPayWithdrawModel = AliPayWithdrawModel.builder()
                 .out_biz_no("20181206145569697")
                 .amount(new BigDecimal(0.2))
@@ -99,50 +105,53 @@ public class AliPayController {
                 // TODO 处理业务逻辑
             }
         } catch (AlipayApiException e) {
-            log.info("零钱提现异常原因:" + e.getErrMsg());
+            log.info("零钱提现异常原因:" + e.getMessage());
             e.printStackTrace();
         }
     }
 
     /**
      * 支付宝异步通知地址
+     *
      * @param request
      * @return
      */
     @RequestMapping("notify")
-    public String returnUrl(HttpServletRequest request){
+    @Transactional(rollbackFor = Exception.class)
+    public void returnUrl(HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> params = AliPayOrderUtil.convertRequestParamsToMap(request);
-        String paramsJson = JSON.toJSONString(params);
+        String result = "";
+        //调用SDK验证签名
+        boolean signVerified = false;
         try {
-            //调用SDK验证签名
-            boolean signVerified = AlipaySignature.rsaCheckV1(params, AliPayConstants.RAS_PUBLIC_KEY,
+            signVerified = AlipaySignature.rsaCheckV1(params, AliPayConstants.RAS_PUBLIC_KEY,
                     AliPayConstants.CHARSET, AliPayConstants.SIGNTYPE);
-            if (signVerified) {
-                this.check(params);
-                singleThreadPool.execute(() -> {
-                    AliPayNotifyParamConstants param = AliPayOrderUtil.buildAliPayNotifyParam(params);
-                    String tradeStatus = param.getTradeStatus();
-                    //支付成功
-                    if (tradeStatus.equalsIgnoreCase(AliPayConstants.TRADE_SUCCESS)) {
-                        try {
-                            // TODO 业务逻辑
-
-                        } catch (Exception e) {
-                            log.error("支付宝回调业务处理报错,params:" + paramsJson, e);
-                        }
-                    } else {
-                        //支付完成没有做相关业务-暂不处理
-                        log.info("没有处理支付宝异步回调业务，支付宝交易状态：{},params:{}", tradeStatus, paramsJson);
-                    }
-                });
-                return "success";
-            } else {
-                log.info("支付宝异步回调签名认证失败，signVerified=false, paramsJson:{}", paramsJson);
-                return "failure";
-            }
         } catch (AlipayApiException e) {
-            log.info("支付宝异步回调签名认证失败,paramsJson:{},errorMsg:{}", paramsJson, e.getMessage());
-            return "failure";
+            log.info("支付宝回调验签异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+        if (signVerified) {
+            this.check(params);
+            singleThreadPool.execute(() -> {
+                AliPayNotifyParamConstants param = AliPayOrderUtil.buildAliPayNotifyParam(params);
+                String tradeStatus = param.getTradeStatus();
+                //支付成功
+                if (tradeStatus.equalsIgnoreCase(AliPayConstants.TRADE_SUCCESS)) {
+                    // TODO 处理业务逻辑
+                }
+            });
+            result = "success";
+        } else {
+            result = "failure";
+        }
+        try {
+            BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
+            outputStream.write(result.getBytes());
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            log.info("支付宝返回异常，异常信息为：" + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -150,26 +159,15 @@ public class AliPayController {
      * 校验支付宝支付返回的订单信息是否正确
      *
      * @param params
-     * @throws AlipayApiException
      */
-    private void check(Map<String, String> params) throws AlipayApiException {
-
-        //查询支付宝返回的订单信息是否存在
-        String outTradeNo = params.get("out_trade_no");
-
+    private void check(Map<String, String> params) {
         // TODO 判断支付订单号是否是同一个
-
+        String outTradeNo = params.get("out_trade_no");
         // 订单支付金额是否正确
         BigDecimal totalAmount = new BigDecimal(params.get("total_amount"));
-        if (!totalAmount.equals(new BigDecimal(0.2))) {
-            throw new AlipayApiException("支付金额错误");
-        }
-
+        Assert.isTrue(!totalAmount.equals(new BigDecimal(0.2)), "支付金额错误");
         // 判断支付的商户信息是否一致
-        if (!params.get("app_id").equals(AliPayConstants.OPEN_ID)) {
-            throw new AlipayApiException("支付的商户信息不正确");
-        }
-
+        Assert.isTrue(!params.get("app_id").equals(AliPayConstants.OPEN_ID), "支付的商户信息不正确");
     }
 
 }

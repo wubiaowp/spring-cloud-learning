@@ -13,7 +13,7 @@ public class AliOssController {
 
     @RequestMapping("/upload")
     public String upload(@RequestParam(value = "file", required = false) MultipartFile file){
-        return AliOssUtil.uploadImg(file, AliOssConstants.filedir);
+        return AliOssUtil.uploadImg(file, AliOssConstants.fileDir);
     }
 
 }

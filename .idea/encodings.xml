@@ -2,18 +2,14 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/alipay" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/author" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/config" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/eureka" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/eureka" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/fegin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/fegin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/hystrix" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/hystrix" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ribbon" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ribbon" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/zuul" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/zuul" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/webflux" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/wechat" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zipkin" charset="UTF-8" />
   </component>
 </project>

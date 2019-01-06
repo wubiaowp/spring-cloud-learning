@@ -14,6 +14,6 @@ public class AliOssConstants {
 
     public static final String bucketName = "test";
 
-    public static final String filedir = "data/";
+    public static final String fileDir = "data/";
 
 }

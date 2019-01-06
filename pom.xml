@@ -104,6 +104,7 @@
             <artifactId>aliyun-sdk-oss</artifactId>
             <version>2.7.0</version>
         </dependency>
+        <!-- 文件上传工具 -->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -115,11 +116,13 @@
             <artifactId>modelmapper</artifactId>
             <version>2.3.0</version>
         </dependency>
+        <!-- http连接工具 -->
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
             <version>3.1</version>
         </dependency>
+        <!-- 对象注解 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
