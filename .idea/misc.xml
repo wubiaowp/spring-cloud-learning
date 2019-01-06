@@ -2,11 +2,20 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/alipay" />
+    <file type="web" url="file://$PROJECT_DIR$/author" />
     <file type="web" url="file://$PROJECT_DIR$/config" />
+    <file type="web" url="file://$PROJECT_DIR$/customer" />
     <file type="web" url="file://$PROJECT_DIR$/eureka" />
     <file type="web" url="file://$PROJECT_DIR$/fegin" />
+    <file type="web" url="file://$PROJECT_DIR$/gateway" />
     <file type="web" url="file://$PROJECT_DIR$/hystrix" />
+    <file type="web" url="file://$PROJECT_DIR$/product" />
+    <file type="web" url="file://$PROJECT_DIR$/provider" />
     <file type="web" url="file://$PROJECT_DIR$/ribbon" />
+    <file type="web" url="file://$PROJECT_DIR$/webflux" />
+    <file type="web" url="file://$PROJECT_DIR$/wechat" />
+    <file type="web" url="file://$PROJECT_DIR$/zipkin" />
     <file type="web" url="file://$PROJECT_DIR$/zuul" />
   </component>
   <component name="MavenProjectsManager">
@@ -14,6 +23,16 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/customer/pom.xml" />
+        <option value="$PROJECT_DIR$/fegin/pom.xml" />
+        <option value="$PROJECT_DIR$/hystrix/pom.xml" />
+        <option value="$PROJECT_DIR$/product/pom.xml" />
+        <option value="$PROJECT_DIR$/provider/pom.xml" />
+        <option value="$PROJECT_DIR$/zuul/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">

@@ -1,0 +1,21 @@
+server:
+  port: 8085
+
+spring:
+  application:
+      name: source-author
+  output:
+    ansi:
+      enabled: ALWAYS
+
+eureka:
+  port: 8761
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}-${eureka.instance.hostname}:${server.port}
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.port}/eureka/

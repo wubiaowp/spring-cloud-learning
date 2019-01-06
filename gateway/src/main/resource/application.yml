@@ -1,0 +1,49 @@
+server:
+  port: 8089
+
+spring:
+  application:
+      name: source-gateway
+  output:
+    ansi:
+      enabled: ALWAYS
+#  cloud:
+#    gateway:
+#      default-filters:
+#      routes:
+#      - id: source-zipkin
+#      uri: lb://source-zipkin
+#      predicates:
+#      - Path=/zipkin/**
+
+zuul:
+  sensitiveHeaders: "Cookie","Set-Cookie"
+  routes:
+    source-alipay: /alipay/**
+    source-wechat: /wechat/**
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enable: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+
+eureka:
+  port: 8761
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}-${eureka.instance.hostname}:${server.port}
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.port}/eureka/
