@@ -4,7 +4,7 @@ config:配置中心
 eureka:服务注册中心
 gateway:网关服务
 ribbon:负载
-zipping:链路追踪
+zipkin:链路追踪
 webflux:非阻塞API
 alipay:支付宝接入：网页版支付、提现、OSS上传图片
 wechat:微信接入
