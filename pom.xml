@@ -17,6 +17,8 @@
         <module>author</module>
         <module>alipay</module>
         <module>wechat</module>
+        <module>hadoop</module>
+        <module>spark</module>
     </modules>
 
     <parent>
